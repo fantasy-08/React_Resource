@@ -6,3 +6,6 @@
 ### [Firebase](https://firebase.google.com/)
 
 ### [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+
+#### [FireBase PDF](https://github.com/fantasy-08/React_Resource/blob/main/Resources/firebase.pdf)
