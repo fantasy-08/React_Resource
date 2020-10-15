@@ -9,3 +9,6 @@
 
 
 #### [FireBase PDF](https://github.com/fantasy-08/React_Resource/blob/main/Resources/firebase.pdf)
+
+
+### [Redux](https://redux.js.org/recipes/configuring-your-store/)
