@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Game</title>
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+        <br/>
+		<div class="container">
+			<div
+				class="alert alert-primary container"
+				id="alert_div"
+				role="alert"
+			>
+				<h1 id="round" style="text-align: center; color: black"></h1>
+			</div>
+			<div class="row">
+				<div class="col">
+					<h5>Current Score <span id="CS"></span></h3>					
+				</div>
+				<div class="col">
+					<h5 style="float: right;">Maximum Score <span id="MS"></span></h3>
+				</div>
+            </div>
+            <br/>
+            <div class="" style="min-height: 25rem;">
+                <h1 class="display-1" id="display" style="text-align: center;"></h1>
+            </div>
+            <div class="controls" style="justify-content: center;display: grid;">
+                <input type="text" class="form-control" id="answer" placeholder="Enter without space"/>
+                <br/>
+                <button type="button" class="btn btn-primary btn-lg" id="nxt"></button>
+            </div>
+		</div>
+	</body>
+	<script
+		src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"
+	></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"
+	></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"
+	></script>
+	<script>
+		var alert_div = document.querySelector("#alert_div");
+		var title = document.querySelector("#round");
+		var button = document.querySelector("#nxt");
+		var input = document.querySelector("#answer");
+        var display = document.querySelector("#display");
+        var max_score=0,current_score=0;
+		input.style.visibility = "hidden";
+        document.querySelector('#CS').innerHTML=0,document.querySelector('#MS').innerHTML=0;;
+		button.innerHTML = "Start";
+		var round = 0,
+			score = 0,
+			ans;
+		button.addEventListener("click", onClick);
+		title.innerHTML = "Press Start to begin";
+		function getRandomInt(max) {
+			return Math.floor(Math.random() * Math.floor(max));
+		}
+		function generate_numbers(n) {
+			var arr = [];
+			for (var i = 0; i < n; i++) {
+				var temp = getRandomInt(n * 100);
+				arr.push(temp);
+			}
+			ans = "";
+			for (var i = round - 1; i >= 0; i--) ans = `${ans}${arr[i]}`;
+			return arr;
+		}
+		function init() {
+			round = 0;
+			button.innerHTML = "Start";
+			title.innerHTML = "Press Start to begin";
+			input.value = "";
+            alert_div.className = "alert alert-primary container";
+            button.className="btn btn-primary btn-lg"
+			display.innerHTML=""
+            document.querySelector('#CS').innerHTML=0;
+		}
+		function onClick(e) {
+			if (button.innerHTML === "Submit") {
+				var data = input.value;
+				if (data == ans) {
+					button.innerHTML = "Next Round";
+                    button.className="btn btn-success btn-lg"
+                    score += 1;
+                    current_score=score;
+                    document.querySelector('#CS').innerHTML=current_score;
+					input.value = "";
+					input.style.visibility = "hidden";
+					title.innerHTML = "Correct answer";
+					alert_div.className = "alert alert-success container";
+					display.innerHTML = "Correct answer";
+					return null;
+				} else {
+					title.innerHTML = "Game Over";
+					display.innerHTML=ans;
+                    button.className="btn btn-danger btn-lg"
+					alert_div.className = "alert alert-danger container";
+					button.innerHTML = "Restart";
+					return null;
+				}
+			} else if (button.innerHTML === "Restart") {
+                max_score=Math.max(max_score,current_score);
+                document.querySelector('#MS').innerHTML=max_score;
+				init();
+				return null;
+			}
+			round += 1;
+			display.innerHTML = "";
+			title.innerHTML = `Round ${round} starts`;
+			alert_div.className = "alert alert-dark container";
+			var numbers = generate_numbers(round);
+			var rem = round - 1;
+
+			var x = setInterval(Display, 1000);
+			function Display() {
+				if (rem >= 0) {
+					button.style.visibility = "hidden";
+					display.innerHTML = `${numbers[rem]}`;
+					rem -= 1;
+				} else {
+					display.innerHTML = "Your Turn !";
+                    button.innerHTML = "Submit";
+                    button.className="btn btn-warning btn-lg"
+					button.style.visibility = "visible";
+					input.style.visibility = "visible";
+					clearInterval(x);
+				}
+			}
+		}
+	</script>
+</html>
