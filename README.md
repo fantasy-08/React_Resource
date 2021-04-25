@@ -13,4 +13,6 @@
 
 ### [Redux](https://redux.js.org/recipes/configuring-your-store/)
 
-### [Redux_React](https://medium.com/coox-tech/how-to-setup-redux-with-react-2020-adb8cad90234
+### [Redux_React1](https://medium.com/coox-tech/how-to-setup-redux-with-react-2020-adb8cad90234)
+
+### [Redux_React2](https://medium.com/swlh/state-management-in-react-with-redux-tutorial-53fa7dd60d19)
